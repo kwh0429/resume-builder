@@ -1,0 +1,9 @@
+# Virtual Environment (가상환경)
+venv/
+
+# Environment Variables & Secrets (비밀 환경변수 및 API Key)
+.env
+
+# Python Cache Files (파이썬 컴파일 임시 파일)
+__pycache__/
+*.pyc

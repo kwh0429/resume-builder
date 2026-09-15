@@ -1,0 +1,421 @@
+/* ==========================================================================
+   AI Resume & Portfolio Builder - 레인보우 무지개빛 스타일시트 (style.css)
+   화사하고 알록달록한 무지개 그라디언트 & 세련된 글래스모피즘 테마
+   ========================================================================== */
+
+/* 1. 기본 스타일 및 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 움직이는 은은한 무지개빛 배경 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 20%, #fbc2eb 40%, #a18cd1 60%, #fad0c4 80%, #ffd1ff 100%);
+    background-size: 400% 400%;
+    animation: rainbowBackground 15s ease infinite;
+    color: #2d3748;
+    line-height: 1.6;
+    padding: 25px 20px;
+    min-height: 100vh;
+}
+
+@keyframes rainbowBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 2. 전체 페이지 컨테이너 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 3. 헤더 영역 - 반짝이는 무지개 텍스트 */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 10px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ff1493, #ff4500, #ff8c00, #ffd700, #00c9a7, #0081cf, #845ec2);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowShine 4s linear infinite;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
+}
+
+@keyframes rainbowShine {
+    to { background-position: 200% center; }
+}
+
+.header .subtitle {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #3f3d56;
+    background: rgba(255, 255, 255, 0.6);
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+}
+
+/* 4. 메인 2단 레이아웃 (반응형) */
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 5. 공통 카드 스타일 - 은은한 무지개 테두리와 반투명 유리(Glassmorphism) 효과 */
+.card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(132, 94, 194, 0.15), 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff);
+    border-radius: 18px;
+    z-index: -1;
+    opacity: 0.7;
+}
+
+.card h2 {
+    font-size: 1.4rem;
+    background: linear-gradient(90deg, #ff5e62, #ff9966);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    border-bottom: 2px dashed #ffd1ff;
+    padding-bottom: 10px;
+}
+
+/* 6. 폼 그룹 및 입력창 스타일 */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #4a5568;
+    font-size: 0.95rem;
+}
+
+.required {
+    color: #ff3838;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: #2d3748;
+    background-color: rgba(255, 255, 255, 0.95);
+    transition: all 0.25s ease;
+    font-family: inherit;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #ff6b81;
+    box-shadow: 0 0 0 4px rgba(255, 107, 129, 0.25);
+    background-color: #ffffff;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* 7. 프롬프트 모드 라디오 카드 - 알록달록 선택창 */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.radio-card {
+    display: block;
+    padding: 14px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.7);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.radio-card:hover {
+    border-color: #70a1ff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(112, 161, 255, 0.2);
+    background: #ffffff;
+}
+
+.radio-card input[type="radio"] {
+    accent-color: #ff4757;
+    margin-right: 8px;
+    transform: scale(1.15);
+}
+
+.radio-title {
+    font-weight: 700;
+    color: #2f3542;
+    display: inline-block;
+}
+
+.radio-desc {
+    display: block;
+    font-size: 0.85rem;
+    color: #747d8c;
+    margin-top: 4px;
+    padding-left: 24px;
+}
+
+/* 8. 버튼 스타일 - 화려한 무지개 그라디언트 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 13px 22px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* 메인 생성 버튼: 환상적인 무지개빛 그라디언트 + 글로우 효과 */
+.btn-primary {
+    width: 100%;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b, #ffb88c, #2ed573, #1e90ff, #9b59b6);
+    background-size: 300% 300%;
+    color: #ffffff;
+    margin-top: 12px;
+    box-shadow: 0 6px 20px rgba(255, 65, 108, 0.4);
+    animation: rainbowButton 6s ease infinite;
+}
+
+@keyframes rainbowButton {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(255, 75, 43, 0.6);
+}
+
+.btn-primary:disabled {
+    background: #ced6e0;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 보조 버튼들 (복사, 다운로드) */
+.btn-secondary {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    color: #2f3542;
+    font-size: 0.9rem;
+    padding: 9px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #96e6a1 0%, #d4fc79 100%);
+}
+
+/* 9. 에러 알림 상자 */
+.alert {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.alert-error {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+    color: #b71540;
+    border: 1px solid #ff6b81;
+    box-shadow: 0 4px 12px rgba(255, 107, 129, 0.2);
+}
+
+/* 10. 로딩 상태 박스 및 알록달록 회전 스피너 */
+.loading-box {
+    text-align: center;
+    padding: 45px 20px;
+    color: #3742fa;
+}
+
+.loading-box p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 18px;
+    background: linear-gradient(90deg, #ff4757, #2ed573, #1e90ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.loading-box small {
+    color: #747d8c;
+}
+
+/* 무지개빛 회전 스피너 */
+.spinner {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    border-top: 5px solid #ff4757;
+    border-right: 5px solid #ffa502;
+    border-bottom: 5px solid #2ed573;
+    border-left: 5px solid #1e90ff;
+    animation: rainbowSpin 1s linear infinite;
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.3);
+}
+
+@keyframes rainbowSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 11. 초기 대기 안내 상자 */
+.placeholder-box {
+    text-align: center;
+    padding: 70px 20px;
+    color: #747d8c;
+    font-size: 1.05rem;
+    line-height: 1.9;
+}
+
+/* 12. 결과 출력 영역 및 액션 버튼 바 */
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.result-output {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 28px;
+    font-size: 0.98rem;
+    color: #2f3542;
+    line-height: 1.8;
+    max-height: 650px;
+    overflow-y: auto;
+    border: 1.5px solid #f1f2f6;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+/* 13. 마크다운(Markdown) 렌더링 상세 스타일 - 화사한 컬러 포인트 */
+.markdown-body h1 {
+    font-size: 1.65rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ff4757, #ff6b81, #ffa502);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(90deg, #ff4757, #ffa502, #2ed573, #1e90ff) 1;
+    padding-bottom: 8px;
+    margin-top: 10px;
+    margin-bottom: 18px;
+}
+
+.markdown-body h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #2e86de;
+    border-bottom: 2px dashed #a8edea;
+    padding-bottom: 6px;
+    margin-top: 26px;
+    margin-bottom: 14px;
+}
+
+.markdown-body h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #5f27cd;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.markdown-body p {
+    margin-bottom: 14px;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+    margin-left: 22px;
+    margin-bottom: 16px;
+}
+
+.markdown-body li {
+    margin-bottom: 8px;
+}
+
+.markdown-body strong {
+    color: #ee5253;
+    font-weight: 700;
+}
+
+.markdown-body hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+    margin: 24px 0;
+    border-radius: 2px;
+}
+
+.markdown-body blockquote {
+    border-left: 5px solid #ff4757;
+    padding: 10px 18px;
+    color: #2f3542;
+    margin: 16px 0;
+    background: linear-gradient(135deg, rgba(255, 234, 167, 0.4), rgba(255, 118, 117, 0.15));
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+}

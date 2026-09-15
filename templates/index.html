@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 이력서 & 포트폴리오 빌더</title>
+    <!-- 외부 스타일시트(CSS) 연결 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 영역 -->
+        <header class="header">
+            <h1>📄 AI Resume & Portfolio Builder</h1>
+            <p class="subtitle">간단한 정보만 입력하면 Google Gemini AI가 맞춤형 이력서와 포트폴리오를 완성해 드립니다.</p>
+        </header>
+
+        <!-- 메인 콘텐츠 영역 (입력 폼 & 결과 창) -->
+        <main class="main-layout">
+            <!-- 1. 입력 폼 섹션 -->
+            <section class="card form-section">
+                <h2>✍️ 정보 입력</h2>
+                <form id="resumeForm">
+                    <!-- 이름 입력 -->
+                    <div class="form-group">
+                        <label for="name">이름 <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" placeholder="예: 홍길동" required>
+                    </div>
+
+                    <!-- 지원 직무 입력 -->
+                    <div class="form-group">
+                        <label for="role">지원 직무 <span class="required">*</span></label>
+                        <input type="text" id="role" name="role" placeholder="예: 백엔드 개발자, 데이터 분석가" required>
+                    </div>
+
+                    <!-- 프롬프트 모드 선택 (Prompt A vs Prompt B) -->
+                    <div class="form-group">
+                        <label>작성 모드 선택 <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-card">
+                                <input type="radio" name="prompt_type" value="general" checked>
+                                <span class="radio-title">🌱 일반 모드 (Prompt A)</span>
+                                <span class="radio-desc">신입/초보자 친화적이며 깔끔하고 정갈한 표준 양식</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="prompt_type" value="expert">
+                                <span class="radio-title">🚀 전문가 모드 (Prompt B)</span>
+                                <span class="radio-desc">STAR 기법 기반, 구체적 수치와 비즈니스 성과 극대화</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 문체/Tone 선택 -->
+                    <div class="form-group">
+                        <label for="tone">문체 (Tone앤매너)</label>
+                        <select id="tone" name="tone">
+                            <option value="professional">격식 있고 전문적인 톤</option>
+                            <option value="confident">자신감 넘치고 주도적인 톤</option>
+                            <option value="enthusiastic">열정적이고 적극적인 톤</option>
+                            <option value="concise">군더더기 없는 간결한 톤</option>
+                        </select>
+                    </div>
+
+                    <!-- 경력 사항 입력 -->
+                    <div class="form-group">
+                        <label for="experience">경력 및 학력 사항 <span class="required">*</span></label>
+                        <textarea id="experience" name="experience" rows="4" placeholder="예: &#10;- 한국대학교 컴퓨터공학 학사 (2020~2024)&#10;- ABC 스타트업 인턴 6개월 (API 개발 및 DB 관리)" required></textarea>
+                    </div>
+
+                    <!-- 프로젝트 경험 입력 -->
+                    <div class="form-group">
+                        <label for="projects">프로젝트 경험 <span class="required">*</span></label>
+                        <textarea id="projects" name="projects" rows="5" placeholder="예: &#10;- 프로젝트명: 온라인 쇼핑몰 플랫폼&#10;- 주요 역할: 장바구니 및 결제 기능 구현&#10;- 사용 기술: Python, Flask, SQLite" required></textarea>
+                    </div>
+
+                    <!-- 생성 버튼 -->
+                    <button type="submit" id="submitBtn" class="btn btn-primary">
+                        ✨ AI 이력서 & 포트폴리오 생성하기
+                    </button>
+                </form>
+            </section>
+
+            <!-- 2. 결과 표시 섹션 -->
+            <section class="card result-section">
+                <h2>📋 생성 결과</h2>
+
+                <!-- 에러 메시지 상자 (오류 발생 시 표시) -->
+                <div id="errorBox" class="alert alert-error" style="display: none;"></div>
+
+                <!-- 로딩 표시 (생성 중일 때 표시) -->
+                <div id="loadingBox" class="loading-box" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>🤖 Google Gemini AI가 맞춤형 이력서를 작성하고 있습니다...</p>
+                    <small>약 5초~10초 정도 소요될 수 있습니다.</small>
+                </div>
+
+                <!-- 안내 문구 (아직 생성 전일 때 표시) -->
+                <div id="placeholderBox" class="placeholder-box">
+                    <p>👈 왼쪽에서 정보를 입력하고<br><strong>[AI 이력서 & 포트폴리오 생성하기]</strong> 버튼을 눌러주세요.</p>
+                </div>
+
+                <!-- 최종 결과 상자 (완료 후 표시) -->
+                <div id="resultContentArea" style="display: none;">
+                    <!-- 상단 액션 버튼들 (복사, 다운로드) -->
+                    <div class="action-buttons">
+                        <button id="copyBtn" class="btn btn-secondary">📋 텍스트 복사</button>
+                        <button id="downloadBtn" class="btn btn-secondary">💾 마크다운(.md) 다운로드</button>
+                    </div>
+
+                    <!-- 이력서 결과 내용 출력창 (마크다운 렌더링) -->
+                    <div id="resultOutput" class="result-output markdown-body"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 마크다운 렌더링 라이브러리 (marked.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- 외부 자바스크립트(JS) 연결 -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
