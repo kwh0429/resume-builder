@@ -716,3 +716,27 @@ textarea {
     color: #cbd5e0;
 }
 
+/* ==========================================================================
+   16. PWA 설치 버튼 스타일
+   ========================================================================== */
+.pwa-install-btn {
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(135deg, #845ec2, #ff6b81);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(132, 94, 194, 0.35);
+    transition: all 0.25s ease;
+}
+
+.pwa-install-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 16px rgba(132, 94, 194, 0.5);
+}
+
+

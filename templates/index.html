@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 이력서 & 포트폴리오 빌더</title>
+    <!-- PWA 메타 태그 & 매니페스트 설정 -->
+    <meta name="theme-color" content="#845ec2">
+    <meta name="description" content="Google Gemini AI 맞춤형 이력서 & 포트폴리오 원클릭 제작 웹앱">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <link rel="icon" type="image/png" href="/static/icons/icon-192.png">
+
     <!-- 외부 스타일시트(CSS) 연결 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -13,6 +22,11 @@
         <header class="header">
             <h1>📄 AI Resume & Portfolio Builder</h1>
             <p class="subtitle">간단한 정보만 입력하면 Google Gemini AI가 맞춤형 이력서와 포트폴리오를 완성해 드립니다.</p>
+            <div class="pwa-install-container" style="margin-top: 10px;">
+                <button type="button" id="pwaInstallBtn" class="pwa-install-btn" style="display: none;">
+                    📲 앱으로 설치하기
+                </button>
+            </div>
         </header>
 
         <!-- 메인 콘텐츠 영역 (입력 폼 & 결과 창) -->

@@ -14,8 +14,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# 3. Flask 앱 생성
-app = Flask(__name__)
+# 3. Flask 앱 생성 (Vercel Serverless 및 로컬 호환성 보장)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(
+    __name__,
+    template_folder=os.path.join(BASE_DIR, "templates"),
+    static_folder=os.path.join(BASE_DIR, "static")
+)
 
 # 4. Gemini API Key 설정
 api_key = os.getenv("GEMINI_API_KEY")
@@ -86,6 +91,21 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/manifest.json")
+def manifest():
+    """PWA Manifest 파일 서빙"""
+    return app.send_static_file("manifest.json")
+
+
+@app.route("/sw.js")
+def service_worker():
+    """PWA Service Worker 파일 서빙 (루트 Scope 보장)"""
+    response = app.send_static_file("sw.js")
+    response.headers["Content-Type"] = "application/javascript"
+    response.headers["Service-Worker-Allowed"] = "/"
+    return response
+
+
 @app.route("/generate", methods=["POST"])
 def generate():
     """
@@ -130,11 +150,14 @@ def generate():
         # Gemini API Key 등록 여부 검증
         current_api_key = os.getenv("GEMINI_API_KEY")
         if not current_api_key or current_api_key == "your_gemini_api_key_here":
-            logger.error("[API Key 오류] .env 파일에 유효한 GEMINI_API_KEY가 없습니다.")
+            logger.error("[API Key 오류] 유효한 GEMINI_API_KEY가 없습니다.")
             return jsonify({
                 "success": False,
-                "error": ".env 파일에 유효한 Gemini API 키가 설정되지 않았습니다. Step 8을 완료했는지 확인해 주세요."
+                "error": "유효한 Gemini API 키가 설정되지 않았습니다. Vercel 환경변수 또는 .env를 확인해 주세요."
             }), 500
+
+        # Gemini API 설정 (Serverless 런타임 호환)
+        genai.configure(api_key=current_api_key)
 
         # 프롬프트 조합
         full_prompt = build_prompt(prompt_type, name, role, experience, projects, tone)

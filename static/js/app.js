@@ -244,4 +244,53 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         document.body.removeChild(textArea);
     }
+
+    // ==========================================================================
+    // PWA: 서비스 워커(Service Worker) 등록 및 설치 프롬프트 제어
+    // ==========================================================================
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("/sw.js")
+                .then((registration) => {
+                    console.log("[PWA] Service Worker 등록 성공, Scope:", registration.scope);
+                })
+                .catch((error) => {
+                    console.warn("[PWA] Service Worker 등록 실패:", error);
+                });
+        });
+    }
+
+    // PWA 설치 버튼 제어
+    let deferredPrompt = null;
+    const pwaInstallBtn = document.getElementById("pwaInstallBtn");
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+        // 브라우저 기본 미니 인포바 방지
+        e.preventDefault();
+        deferredPrompt = e;
+
+        // 설치 버튼 표시
+        if (pwaInstallBtn) {
+            pwaInstallBtn.style.display = "inline-flex";
+        }
+    });
+
+    if (pwaInstallBtn) {
+        pwaInstallBtn.addEventListener("click", async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log("[PWA] 사용자 설치 응답:", outcome);
+            deferredPrompt = null;
+            pwaInstallBtn.style.display = "none";
+        });
+    }
+
+    window.addEventListener("appinstalled", () => {
+        console.log("[PWA] 앱이 성공적으로 설치되었습니다.");
+        if (pwaInstallBtn) {
+            pwaInstallBtn.style.display = "none";
+        }
+    });
 });
+
