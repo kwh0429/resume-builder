@@ -22,12 +22,40 @@
         <header class="header">
             <h1>📄 AI Resume & Portfolio Builder</h1>
             <p class="subtitle">간단한 정보만 입력하면 Google Gemini AI가 맞춤형 이력서와 포트폴리오를 완성해 드립니다.</p>
-            <div class="pwa-install-container" style="margin-top: 10px;">
-                <button type="button" id="pwaInstallBtn" class="pwa-install-btn" style="display: none;">
-                    📲 앱으로 설치하기
+            <div class="pwa-install-container" style="margin-top: 12px;">
+                <button type="button" id="pwaInstallBtn" class="pwa-install-btn">
+                    📲 앱으로 설치하기 (홈화면 추가)
                 </button>
             </div>
         </header>
+
+        <!-- iOS PWA 설치 가이드 모달 -->
+        <div id="iosInstallModal" class="ios-modal" style="display: none;">
+            <div class="ios-modal-content">
+                <div class="ios-modal-header">
+                    <h3>📲 아이폰에 앱 설치하기</h3>
+                    <button type="button" class="ios-close-btn" id="closeIosModalBtn">&times;</button>
+                </div>
+                <p class="ios-modal-desc">Safari 브라우저에서 아래 3단계로 홈 화면에 앱을 추가하세요!</p>
+                <ol class="ios-steps">
+                    <li>
+                        <span class="step-num">1</span>
+                        <span>화면 맨 아래 Safari 툴바의 <strong>[공유 버튼]</strong> (네모 위 화살표 ⎋)을 탭합니다.</span>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <span>목록을 아래로 내려 <strong>[홈 화면에 추가]</strong> (➕)를 탭합니다.</span>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <span>오른쪽 위의 <strong>[추가]</strong>를 누르면 홈 화면에 앱이 완성됩니다!</span>
+                    </li>
+                </ol>
+                <button type="button" class="btn btn-primary" id="confirmIosModalBtn" style="width: 100%; margin-top: 15px;">
+                    확인했습니다 ✨
+                </button>
+            </div>
+        </div>
 
         <!-- 메인 콘텐츠 영역 (입력 폼 & 결과 창) -->
         <main class="main-layout">

@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // PWA: 서비스 워커(Service Worker) 등록 및 설치 프롬프트 제어
+    // PWA: 서비스 워커(Service Worker) 등록 및 아이폰(iOS) / 모바일 설치 제어
     // ==========================================================================
     if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
@@ -260,29 +260,77 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // PWA 설치 버튼 제어
-    let deferredPrompt = null;
     const pwaInstallBtn = document.getElementById("pwaInstallBtn");
+    const iosInstallModal = document.getElementById("iosInstallModal");
+    const closeIosModalBtn = document.getElementById("closeIosModalBtn");
+    const confirmIosModalBtn = document.getElementById("confirmIosModalBtn");
 
+    // iOS (iPhone, iPad, iPod) 감지
+    const isIos = () => {
+        const ua = window.navigator.userAgent.toLowerCase();
+        return /iphone|ipad|ipod/.test(ua);
+    };
+
+    // 이미 홈 화면 앱(Standalone)으로 실행 중인지 확인
+    const isInStandaloneMode = () => {
+        return ("standalone" in window.navigator && window.navigator.standalone) ||
+               (window.matchMedia("(display-mode: standalone)").matches);
+    };
+
+    // 이미 앱으로 실행 중이면 버튼 숨김, 브라우저로 접속 시 즉시 버튼 노출!
+    if (isInStandaloneMode()) {
+        if (pwaInstallBtn) pwaInstallBtn.style.display = "none";
+    } else {
+        if (pwaInstallBtn) pwaInstallBtn.style.display = "inline-flex";
+    }
+
+    let deferredPrompt = null;
+
+    // Android/Chrome 전용 beforeinstallprompt 이벤트
     window.addEventListener("beforeinstallprompt", (e) => {
-        // 브라우저 기본 미니 인포바 방지
         e.preventDefault();
         deferredPrompt = e;
-
-        // 설치 버튼 표시
-        if (pwaInstallBtn) {
+        if (pwaInstallBtn && !isInStandaloneMode()) {
             pwaInstallBtn.style.display = "inline-flex";
         }
     });
 
+    // PWA 설치 버튼 클릭 시 (아이폰 / 안드로이드 맞춤형 동작)
     if (pwaInstallBtn) {
         pwaInstallBtn.addEventListener("click", async () => {
-            if (!deferredPrompt) return;
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log("[PWA] 사용자 설치 응답:", outcome);
-            deferredPrompt = null;
-            pwaInstallBtn.style.display = "none";
+            if (isIos()) {
+                // 아이폰(iOS)인 경우: Safari 홈 화면 추가 3단계 안내 모달 즉시 팝업
+                if (iosInstallModal) {
+                    iosInstallModal.style.display = "flex";
+                }
+            } else if (deferredPrompt) {
+                // Chrome/Android인 경우: 원클릭 시스템 설치창 실행
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log("[PWA] 사용자 설치 응답:", outcome);
+                deferredPrompt = null;
+                if (outcome === "accepted") {
+                    pwaInstallBtn.style.display = "none";
+                }
+            } else {
+                // 그 외 브라우저: 안내 모달 표시
+                if (iosInstallModal) {
+                    iosInstallModal.style.display = "flex";
+                }
+            }
+        });
+    }
+
+    // iOS 가이드 모달 닫기
+    const hideIosModal = () => {
+        if (iosInstallModal) iosInstallModal.style.display = "none";
+    };
+
+    if (closeIosModalBtn) closeIosModalBtn.addEventListener("click", hideIosModal);
+    if (confirmIosModalBtn) confirmIosModalBtn.addEventListener("click", hideIosModal);
+    if (iosInstallModal) {
+        iosInstallModal.addEventListener("click", (e) => {
+            if (e.target === iosInstallModal) hideIosModal();
         });
     }
 
@@ -291,6 +339,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (pwaInstallBtn) {
             pwaInstallBtn.style.display = "none";
         }
+        hideIosModal();
     });
 });
 
