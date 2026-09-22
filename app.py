@@ -86,18 +86,23 @@ def build_prompt(prompt_type, name, role, experience, projects, tone):
 
 
 @app.route("/")
+@app.route("/api")
+@app.route("/api/index")
+@app.route("/api/index.py")
 def index():
     """메인 페이지 화면 렌더링"""
     return render_template("index.html")
 
 
 @app.route("/manifest.json")
+@app.route("/api/manifest.json")
 def manifest():
     """PWA Manifest 파일 서빙"""
     return app.send_static_file("manifest.json")
 
 
 @app.route("/sw.js")
+@app.route("/api/sw.js")
 def service_worker():
     """PWA Service Worker 파일 서빙 (루트 Scope 보장)"""
     response = app.send_static_file("sw.js")
@@ -107,6 +112,7 @@ def service_worker():
 
 
 @app.route("/generate", methods=["POST"])
+@app.route("/api/generate", methods=["POST"])
 def generate():
     """
     이력서 및 포트폴리오 생성 API 엔드포인트
