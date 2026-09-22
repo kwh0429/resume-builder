@@ -1,0 +1,742 @@
+/* ==========================================================================
+   AI Resume & Portfolio Builder - 레인보우 무지개빛 스타일시트 (style.css)
+   화사하고 알록달록한 무지개 그라디언트 & 세련된 글래스모피즘 테마
+   ========================================================================== */
+
+/* 1. 기본 스타일 및 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 움직이는 은은한 무지개빛 배경 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 20%, #fbc2eb 40%, #a18cd1 60%, #fad0c4 80%, #ffd1ff 100%);
+    background-size: 400% 400%;
+    animation: rainbowBackground 15s ease infinite;
+    color: #2d3748;
+    line-height: 1.6;
+    padding: 25px 20px;
+    min-height: 100vh;
+}
+
+@keyframes rainbowBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 2. 전체 페이지 컨테이너 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 3. 헤더 영역 - 반짝이는 무지개 텍스트 */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 10px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ff1493, #ff4500, #ff8c00, #ffd700, #00c9a7, #0081cf, #845ec2);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowShine 4s linear infinite;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
+}
+
+@keyframes rainbowShine {
+    to { background-position: 200% center; }
+}
+
+.header .subtitle {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #3f3d56;
+    background: rgba(255, 255, 255, 0.6);
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+}
+
+/* 4. 메인 2단 레이아웃 (반응형) */
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 5. 공통 카드 스타일 - 은은한 무지개 테두리와 반투명 유리(Glassmorphism) 효과 */
+.card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(132, 94, 194, 0.15), 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff);
+    border-radius: 18px;
+    z-index: -1;
+    opacity: 0.7;
+}
+
+.card h2 {
+    font-size: 1.4rem;
+    background: linear-gradient(90deg, #ff5e62, #ff9966);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    border-bottom: 2px dashed #ffd1ff;
+    padding-bottom: 10px;
+}
+
+/* 6. 폼 그룹 및 입력창 스타일 */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #4a5568;
+    font-size: 0.95rem;
+}
+
+.required {
+    color: #ff3838;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: #2d3748;
+    background-color: rgba(255, 255, 255, 0.95);
+    transition: all 0.25s ease;
+    font-family: inherit;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #ff6b81;
+    box-shadow: 0 0 0 4px rgba(255, 107, 129, 0.25);
+    background-color: #ffffff;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* 7. 프롬프트 모드 라디오 카드 - 알록달록 선택창 */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.radio-card {
+    display: block;
+    padding: 14px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.7);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.radio-card:hover {
+    border-color: #70a1ff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(112, 161, 255, 0.2);
+    background: #ffffff;
+}
+
+.radio-card input[type="radio"] {
+    accent-color: #ff4757;
+    margin-right: 8px;
+    transform: scale(1.15);
+}
+
+.radio-title {
+    font-weight: 700;
+    color: #2f3542;
+    display: inline-block;
+}
+
+.radio-desc {
+    display: block;
+    font-size: 0.85rem;
+    color: #747d8c;
+    margin-top: 4px;
+    padding-left: 24px;
+}
+
+/* 8. 버튼 스타일 - 화려한 무지개 그라디언트 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 13px 22px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* 메인 생성 버튼: 환상적인 무지개빛 그라디언트 + 글로우 효과 */
+.btn-primary {
+    width: 100%;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b, #ffb88c, #2ed573, #1e90ff, #9b59b6);
+    background-size: 300% 300%;
+    color: #ffffff;
+    margin-top: 12px;
+    box-shadow: 0 6px 20px rgba(255, 65, 108, 0.4);
+    animation: rainbowButton 6s ease infinite;
+}
+
+@keyframes rainbowButton {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(255, 75, 43, 0.6);
+}
+
+.btn-primary:disabled {
+    background: #ced6e0;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 보조 버튼들 (복사, 다운로드) */
+.btn-secondary {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    color: #2f3542;
+    font-size: 0.9rem;
+    padding: 9px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #96e6a1 0%, #d4fc79 100%);
+}
+
+/* 9. 에러 알림 상자 */
+.alert {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.alert-error {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+    color: #b71540;
+    border: 1px solid #ff6b81;
+    box-shadow: 0 4px 12px rgba(255, 107, 129, 0.2);
+}
+
+/* 10. 로딩 상태 박스 및 알록달록 회전 스피너 */
+.loading-box {
+    text-align: center;
+    padding: 45px 20px;
+    color: #3742fa;
+}
+
+.loading-box p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 18px;
+    background: linear-gradient(90deg, #ff4757, #2ed573, #1e90ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.loading-box small {
+    color: #747d8c;
+}
+
+/* 무지개빛 회전 스피너 */
+.spinner {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    border-top: 5px solid #ff4757;
+    border-right: 5px solid #ffa502;
+    border-bottom: 5px solid #2ed573;
+    border-left: 5px solid #1e90ff;
+    animation: rainbowSpin 1s linear infinite;
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.3);
+}
+
+@keyframes rainbowSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 11. 초기 대기 안내 상자 */
+.placeholder-box {
+    text-align: center;
+    padding: 70px 20px;
+    color: #747d8c;
+    font-size: 1.05rem;
+    line-height: 1.9;
+}
+
+/* 12. 결과 출력 영역 및 액션 버튼 바 */
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.result-output {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 28px;
+    font-size: 0.98rem;
+    color: #2f3542;
+    line-height: 1.8;
+    max-height: 650px;
+    overflow-y: auto;
+    border: 1.5px solid #f1f2f6;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+/* 13. 마크다운(Markdown) 렌더링 기본 스타일 */
+.markdown-body h1 {
+    font-size: 1.65rem;
+    font-weight: 800;
+    padding-bottom: 8px;
+    margin-top: 10px;
+    margin-bottom: 18px;
+}
+
+.markdown-body h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    padding-bottom: 6px;
+    margin-top: 26px;
+    margin-bottom: 14px;
+}
+
+.markdown-body h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.markdown-body p {
+    margin-bottom: 14px;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+    margin-left: 22px;
+    margin-bottom: 16px;
+}
+
+.markdown-body li {
+    margin-bottom: 8px;
+}
+
+.markdown-body strong {
+    font-weight: 700;
+}
+
+.markdown-body hr {
+    border: none;
+    height: 2px;
+    margin: 24px 0;
+    border-radius: 2px;
+}
+
+.markdown-body blockquote {
+    padding: 10px 18px;
+    margin: 16px 0;
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   14. 디자인 템플릿 테마 선택기 UI 스타일
+   ========================================================================== */
+.theme-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 6px;
+}
+
+@media (max-width: 600px) {
+    .theme-picker-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: 2px solid rgba(132, 94, 194, 0.2);
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.theme-option input[type="radio"] {
+    display: none;
+}
+
+.theme-option:hover {
+    border-color: #845ec2;
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(132, 94, 194, 0.15);
+}
+
+.theme-option.active {
+    border-color: #ff4757;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.25);
+    font-weight: 700;
+}
+
+.theme-swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    border: 1.5px solid #ffffff;
+}
+
+.rainbow-swatch { background: linear-gradient(135deg, #ff4757, #ffa502, #2ed573, #1e90ff); }
+.ocean-swatch   { background: linear-gradient(135deg, #0984e3, #00cec9); }
+.forest-swatch  { background: linear-gradient(135deg, #10ac84, #1dd1a1); }
+.rose-swatch    { background: linear-gradient(135deg, #e84393, #fd79a8); }
+.charcoal-swatch{ background: linear-gradient(135deg, #2d3436, #636e72); }
+.midnight-swatch{ background: linear-gradient(135deg, #1a1d24, #a29bfe); }
+
+.theme-label {
+    font-size: 0.88rem;
+    color: #2d3748;
+}
+
+/* 결과 섹션 상단 실시간 테마 변경 바 */
+.result-theme-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    border: 1px solid rgba(132, 94, 194, 0.15);
+}
+
+.theme-bar-title {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #4a5568;
+    margin-right: 4px;
+}
+
+.theme-bar-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.theme-pill-btn {
+    padding: 4px 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 20px;
+    border: 1.5px solid #e2e8f0;
+    background: #ffffff;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-pill-btn:hover {
+    border-color: #845ec2;
+    color: #845ec2;
+    transform: translateY(-1px);
+}
+
+.theme-pill-btn.active {
+    background: linear-gradient(135deg, #845ec2, #ff6b81);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 3px 8px rgba(132, 94, 194, 0.3);
+}
+
+/* ==========================================================================
+   15. 6가지 이력서 디자인 템플릿 테마 스타일
+   ========================================================================== */
+
+/* 1) 🌈 레인보우 파스텔 (Rainbow) */
+.result-output.theme-rainbow {
+    background: rgba(255, 255, 255, 0.96);
+    border: 2px solid #fed7e2;
+    box-shadow: 0 8px 25px rgba(255, 154, 162, 0.15);
+}
+.result-output.theme-rainbow h1 {
+    background: linear-gradient(90deg, #ff4757, #ff6b81, #ffa502);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(90deg, #ff4757, #ffa502, #2ed573, #1e90ff) 1;
+}
+.result-output.theme-rainbow h2 {
+    color: #2e86de;
+    border-bottom: 2px dashed #a8edea;
+}
+.result-output.theme-rainbow h3 {
+    color: #5f27cd;
+}
+.result-output.theme-rainbow strong {
+    color: #ee5253;
+}
+.result-output.theme-rainbow hr {
+    background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+}
+.result-output.theme-rainbow blockquote {
+    border-left: 5px solid #ff4757;
+    background: linear-gradient(135deg, rgba(255, 234, 167, 0.4), rgba(255, 118, 117, 0.15));
+    color: #2f3542;
+}
+
+/* 2) 🌊 모던 오션 블루 (Ocean) */
+.result-output.theme-ocean {
+    background: linear-gradient(180deg, #ffffff 0%, #f4f9ff 100%);
+    border: 2px solid #bee3f8;
+    box-shadow: 0 8px 25px rgba(9, 132, 227, 0.15);
+}
+.result-output.theme-ocean h1 {
+    background: linear-gradient(90deg, #0984e3, #00cec9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid #0984e3;
+}
+.result-output.theme-ocean h2 {
+    color: #0984e3;
+    border-bottom: 2px solid #bee3f8;
+}
+.result-output.theme-ocean h3 {
+    color: #00cec9;
+}
+.result-output.theme-ocean strong {
+    color: #0984e3;
+}
+.result-output.theme-ocean hr {
+    background: linear-gradient(90deg, #74b9ff, #0984e3, #81ecec);
+}
+.result-output.theme-ocean blockquote {
+    border-left: 5px solid #0984e3;
+    background: #ebf8ff;
+    color: #2c5282;
+}
+
+/* 3) 🌿 네이처 포레스트 (Forest) */
+.result-output.theme-forest {
+    background: linear-gradient(180deg, #ffffff 0%, #f3faf6 100%);
+    border: 2px solid #c6f6d5;
+    box-shadow: 0 8px 25px rgba(16, 172, 132, 0.15);
+}
+.result-output.theme-forest h1 {
+    background: linear-gradient(90deg, #10ac84, #1dd1a1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid #10ac84;
+}
+.result-output.theme-forest h2 {
+    color: #10ac84;
+    border-bottom: 2px dashed #9ae6b4;
+}
+.result-output.theme-forest h3 {
+    color: #2f855a;
+}
+.result-output.theme-forest strong {
+    color: #10ac84;
+}
+.result-output.theme-forest hr {
+    background: linear-gradient(90deg, #55efc4, #10ac84, #27ae60);
+}
+.result-output.theme-forest blockquote {
+    border-left: 5px solid #10ac84;
+    background: #f0fff4;
+    color: #22543d;
+}
+
+/* 4) 🌸 로즈 핑크 (Rose) */
+.result-output.theme-rose {
+    background: linear-gradient(180deg, #ffffff 0%, #fff5f7 100%);
+    border: 2px solid #fed7e2;
+    box-shadow: 0 8px 25px rgba(232, 67, 147, 0.15);
+}
+.result-output.theme-rose h1 {
+    background: linear-gradient(90deg, #e84393, #fd79a8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid #e84393;
+}
+.result-output.theme-rose h2 {
+    color: #e84393;
+    border-bottom: 2px solid #fed7e2;
+}
+.result-output.theme-rose h3 {
+    color: #b83280;
+}
+.result-output.theme-rose strong {
+    color: #d53f8c;
+}
+.result-output.theme-rose hr {
+    background: linear-gradient(90deg, #fed7e2, #f687b3, #e84393);
+}
+.result-output.theme-rose blockquote {
+    border-left: 5px solid #e84393;
+    background: #fff5f7;
+    color: #702459;
+}
+
+/* 5) 🖤 모던 차콜 (Charcoal) */
+.result-output.theme-charcoal {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+.result-output.theme-charcoal h1 {
+    color: #1a202c;
+    border-bottom: 3px solid #2d3748;
+}
+.result-output.theme-charcoal h2 {
+    color: #2d3748;
+    border-bottom: 1.5px solid #cbd5e0;
+}
+.result-output.theme-charcoal h3 {
+    color: #4a5568;
+}
+.result-output.theme-charcoal strong {
+    color: #1a202c;
+}
+.result-output.theme-charcoal hr {
+    background: #e2e8f0;
+}
+.result-output.theme-charcoal blockquote {
+    border-left: 5px solid #4a5568;
+    background: #f7fafc;
+    color: #2d3748;
+}
+
+/* 6) 🌌 미드나잇 다크 (Midnight) */
+.result-output.theme-midnight {
+    background: #181c24;
+    color: #e2e8f0;
+    border: 2px solid #2d3748;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+.result-output.theme-midnight h1 {
+    background: linear-gradient(90deg, #a29bfe, #74b9ff, #55efc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid #6c5ce7;
+}
+.result-output.theme-midnight h2 {
+    color: #74b9ff;
+    border-bottom: 2px dashed #4a5568;
+}
+.result-output.theme-midnight h3 {
+    color: #a29bfe;
+}
+.result-output.theme-midnight strong {
+    color: #55efc4;
+}
+.result-output.theme-midnight hr {
+    background: linear-gradient(90deg, #6c5ce7, #0984e3, #00cec9);
+}
+.result-output.theme-midnight blockquote {
+    border-left: 5px solid #a29bfe;
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e0;
+}
+
+/* ==========================================================================
+   16. PWA 설치 버튼 스타일
+   ========================================================================== */
+.pwa-install-btn {
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(135deg, #845ec2, #ff6b81);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(132, 94, 194, 0.35);
+    transition: all 0.25s ease;
+}
+
+.pwa-install-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 16px rgba(132, 94, 194, 0.5);
+}
+
+
