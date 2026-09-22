@@ -18,6 +18,55 @@ document.addEventListener("DOMContentLoaded", () => {
     // 사용자 이름 및 원본 마크다운 텍스트 보관 변수
     let currentCandidateName = "이력서";
     let rawMarkdownResult = "";
+    let currentSelectedTheme = "rainbow";
+
+    // 테마 제어 요소들
+    const themeOptionRadios = document.querySelectorAll('input[name="design_theme"]');
+    const themeOptionLabels = document.querySelectorAll('.theme-option');
+    const themePillButtons = document.querySelectorAll('.theme-pill-btn');
+
+    /** 테마 적용 및 양방향 UI 동기화 함수 */
+    function applyTheme(themeName) {
+        currentSelectedTheme = themeName;
+
+        // 결과 영역 테마 클래스 교체
+        if (resultOutput) {
+            resultOutput.className = `result-output markdown-body theme-${themeName}`;
+        }
+
+        // 결과창 상단 테마 알약 버튼 활성화 상태 동기화
+        themePillButtons.forEach(btn => {
+            btn.classList.toggle("active", btn.dataset.theme === themeName);
+        });
+
+        // 입력 폼 라디오 버튼 및 카드 상태 동기화
+        themeOptionRadios.forEach(radio => {
+            radio.checked = (radio.value === themeName);
+        });
+        themeOptionLabels.forEach(label => {
+            const radio = label.querySelector('input[name="design_theme"]');
+            if (radio) {
+                label.classList.toggle("active", radio.checked);
+            }
+        });
+    }
+
+    // 폼 테마 라디오 변경 이벤트 리스너
+    themeOptionRadios.forEach(radio => {
+        radio.addEventListener("change", (e) => {
+            applyTheme(e.target.value);
+        });
+    });
+
+    // 결과창 테마 알약 버튼 클릭 이벤트 리스너
+    themePillButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const theme = btn.dataset.theme;
+            if (theme) {
+                applyTheme(theme);
+            }
+        });
+    });
 
     // 2. 폼 제출(Submit) 이벤트 리스너 등록
     resumeForm.addEventListener("submit", async (e) => {
@@ -157,6 +206,9 @@ document.addEventListener("DOMContentLoaded", () => {
             // marked가 없을 경우를 대비한 대체 텍스트 표시
             resultOutput.textContent = text;
         }
+
+        // 현재 선택된 테마 적용
+        resultOutput.className = `result-output markdown-body theme-${currentSelectedTheme}`;
 
         placeholderBox.style.display = "none";
         resultContentArea.style.display = "block";

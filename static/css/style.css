@@ -351,15 +351,10 @@ textarea {
     box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
-/* 13. 마크다운(Markdown) 렌더링 상세 스타일 - 화사한 컬러 포인트 */
+/* 13. 마크다운(Markdown) 렌더링 기본 스타일 */
 .markdown-body h1 {
     font-size: 1.65rem;
     font-weight: 800;
-    background: linear-gradient(90deg, #ff4757, #ff6b81, #ffa502);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    border-bottom: 3px solid transparent;
-    border-image: linear-gradient(90deg, #ff4757, #ffa502, #2ed573, #1e90ff) 1;
     padding-bottom: 8px;
     margin-top: 10px;
     margin-bottom: 18px;
@@ -368,8 +363,6 @@ textarea {
 .markdown-body h2 {
     font-size: 1.35rem;
     font-weight: 700;
-    color: #2e86de;
-    border-bottom: 2px dashed #a8edea;
     padding-bottom: 6px;
     margin-top: 26px;
     margin-bottom: 14px;
@@ -378,7 +371,6 @@ textarea {
 .markdown-body h3 {
     font-size: 1.15rem;
     font-weight: 700;
-    color: #5f27cd;
     margin-top: 20px;
     margin-bottom: 10px;
 }
@@ -398,24 +390,329 @@ textarea {
 }
 
 .markdown-body strong {
-    color: #ee5253;
     font-weight: 700;
 }
 
 .markdown-body hr {
     border: none;
     height: 2px;
-    background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
     margin: 24px 0;
     border-radius: 2px;
 }
 
 .markdown-body blockquote {
-    border-left: 5px solid #ff4757;
     padding: 10px 18px;
-    color: #2f3542;
     margin: 16px 0;
-    background: linear-gradient(135deg, rgba(255, 234, 167, 0.4), rgba(255, 118, 117, 0.15));
     border-radius: 0 10px 10px 0;
     font-style: italic;
 }
+
+/* ==========================================================================
+   14. 디자인 템플릿 테마 선택기 UI 스타일
+   ========================================================================== */
+.theme-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 6px;
+}
+
+@media (max-width: 600px) {
+    .theme-picker-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: 2px solid rgba(132, 94, 194, 0.2);
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.theme-option input[type="radio"] {
+    display: none;
+}
+
+.theme-option:hover {
+    border-color: #845ec2;
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(132, 94, 194, 0.15);
+}
+
+.theme-option.active {
+    border-color: #ff4757;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.25);
+    font-weight: 700;
+}
+
+.theme-swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    border: 1.5px solid #ffffff;
+}
+
+.rainbow-swatch { background: linear-gradient(135deg, #ff4757, #ffa502, #2ed573, #1e90ff); }
+.ocean-swatch   { background: linear-gradient(135deg, #0984e3, #00cec9); }
+.forest-swatch  { background: linear-gradient(135deg, #10ac84, #1dd1a1); }
+.rose-swatch    { background: linear-gradient(135deg, #e84393, #fd79a8); }
+.charcoal-swatch{ background: linear-gradient(135deg, #2d3436, #636e72); }
+.midnight-swatch{ background: linear-gradient(135deg, #1a1d24, #a29bfe); }
+
+.theme-label {
+    font-size: 0.88rem;
+    color: #2d3748;
+}
+
+/* 결과 섹션 상단 실시간 테마 변경 바 */
+.result-theme-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    border: 1px solid rgba(132, 94, 194, 0.15);
+}
+
+.theme-bar-title {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #4a5568;
+    margin-right: 4px;
+}
+
+.theme-bar-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.theme-pill-btn {
+    padding: 4px 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 20px;
+    border: 1.5px solid #e2e8f0;
+    background: #ffffff;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-pill-btn:hover {
+    border-color: #845ec2;
+    color: #845ec2;
+    transform: translateY(-1px);
+}
+
+.theme-pill-btn.active {
+    background: linear-gradient(135deg, #845ec2, #ff6b81);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 3px 8px rgba(132, 94, 194, 0.3);
+}
+
+/* ==========================================================================
+   15. 6가지 이력서 디자인 템플릿 테마 스타일
+   ========================================================================== */
+
+/* 1) 🌈 레인보우 파스텔 (Rainbow) */
+.result-output.theme-rainbow {
+    background: rgba(255, 255, 255, 0.96);
+    border: 2px solid #fed7e2;
+    box-shadow: 0 8px 25px rgba(255, 154, 162, 0.15);
+}
+.result-output.theme-rainbow h1 {
+    background: linear-gradient(90deg, #ff4757, #ff6b81, #ffa502);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(90deg, #ff4757, #ffa502, #2ed573, #1e90ff) 1;
+}
+.result-output.theme-rainbow h2 {
+    color: #2e86de;
+    border-bottom: 2px dashed #a8edea;
+}
+.result-output.theme-rainbow h3 {
+    color: #5f27cd;
+}
+.result-output.theme-rainbow strong {
+    color: #ee5253;
+}
+.result-output.theme-rainbow hr {
+    background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+}
+.result-output.theme-rainbow blockquote {
+    border-left: 5px solid #ff4757;
+    background: linear-gradient(135deg, rgba(255, 234, 167, 0.4), rgba(255, 118, 117, 0.15));
+    color: #2f3542;
+}
+
+/* 2) 🌊 모던 오션 블루 (Ocean) */
+.result-output.theme-ocean {
+    background: linear-gradient(180deg, #ffffff 0%, #f4f9ff 100%);
+    border: 2px solid #bee3f8;
+    box-shadow: 0 8px 25px rgba(9, 132, 227, 0.15);
+}
+.result-output.theme-ocean h1 {
+    background: linear-gradient(90deg, #0984e3, #00cec9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid #0984e3;
+}
+.result-output.theme-ocean h2 {
+    color: #0984e3;
+    border-bottom: 2px solid #bee3f8;
+}
+.result-output.theme-ocean h3 {
+    color: #00cec9;
+}
+.result-output.theme-ocean strong {
+    color: #0984e3;
+}
+.result-output.theme-ocean hr {
+    background: linear-gradient(90deg, #74b9ff, #0984e3, #81ecec);
+}
+.result-output.theme-ocean blockquote {
+    border-left: 5px solid #0984e3;
+    background: #ebf8ff;
+    color: #2c5282;
+}
+
+/* 3) 🌿 네이처 포레스트 (Forest) */
+.result-output.theme-forest {
+    background: linear-gradient(180deg, #ffffff 0%, #f3faf6 100%);
+    border: 2px solid #c6f6d5;
+    box-shadow: 0 8px 25px rgba(16, 172, 132, 0.15);
+}
+.result-output.theme-forest h1 {
+    background: linear-gradient(90deg, #10ac84, #1dd1a1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid #10ac84;
+}
+.result-output.theme-forest h2 {
+    color: #10ac84;
+    border-bottom: 2px dashed #9ae6b4;
+}
+.result-output.theme-forest h3 {
+    color: #2f855a;
+}
+.result-output.theme-forest strong {
+    color: #10ac84;
+}
+.result-output.theme-forest hr {
+    background: linear-gradient(90deg, #55efc4, #10ac84, #27ae60);
+}
+.result-output.theme-forest blockquote {
+    border-left: 5px solid #10ac84;
+    background: #f0fff4;
+    color: #22543d;
+}
+
+/* 4) 🌸 로즈 핑크 (Rose) */
+.result-output.theme-rose {
+    background: linear-gradient(180deg, #ffffff 0%, #fff5f7 100%);
+    border: 2px solid #fed7e2;
+    box-shadow: 0 8px 25px rgba(232, 67, 147, 0.15);
+}
+.result-output.theme-rose h1 {
+    background: linear-gradient(90deg, #e84393, #fd79a8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid #e84393;
+}
+.result-output.theme-rose h2 {
+    color: #e84393;
+    border-bottom: 2px solid #fed7e2;
+}
+.result-output.theme-rose h3 {
+    color: #b83280;
+}
+.result-output.theme-rose strong {
+    color: #d53f8c;
+}
+.result-output.theme-rose hr {
+    background: linear-gradient(90deg, #fed7e2, #f687b3, #e84393);
+}
+.result-output.theme-rose blockquote {
+    border-left: 5px solid #e84393;
+    background: #fff5f7;
+    color: #702459;
+}
+
+/* 5) 🖤 모던 차콜 (Charcoal) */
+.result-output.theme-charcoal {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+.result-output.theme-charcoal h1 {
+    color: #1a202c;
+    border-bottom: 3px solid #2d3748;
+}
+.result-output.theme-charcoal h2 {
+    color: #2d3748;
+    border-bottom: 1.5px solid #cbd5e0;
+}
+.result-output.theme-charcoal h3 {
+    color: #4a5568;
+}
+.result-output.theme-charcoal strong {
+    color: #1a202c;
+}
+.result-output.theme-charcoal hr {
+    background: #e2e8f0;
+}
+.result-output.theme-charcoal blockquote {
+    border-left: 5px solid #4a5568;
+    background: #f7fafc;
+    color: #2d3748;
+}
+
+/* 6) 🌌 미드나잇 다크 (Midnight) */
+.result-output.theme-midnight {
+    background: #181c24;
+    color: #e2e8f0;
+    border: 2px solid #2d3748;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+.result-output.theme-midnight h1 {
+    background: linear-gradient(90deg, #a29bfe, #74b9ff, #55efc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid #6c5ce7;
+}
+.result-output.theme-midnight h2 {
+    color: #74b9ff;
+    border-bottom: 2px dashed #4a5568;
+}
+.result-output.theme-midnight h3 {
+    color: #a29bfe;
+}
+.result-output.theme-midnight strong {
+    color: #55efc4;
+}
+.result-output.theme-midnight hr {
+    background: linear-gradient(90deg, #6c5ce7, #0984e3, #00cec9);
+}
+.result-output.theme-midnight blockquote {
+    border-left: 5px solid #a29bfe;
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e0;
+}
+

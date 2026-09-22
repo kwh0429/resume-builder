@@ -50,6 +50,43 @@
                         </div>
                     </div>
 
+                    <!-- 디자인 템플릿 테마 선택 -->
+                    <div class="form-group">
+                        <label>🎨 이력서 디자인 템플릿</label>
+                        <div class="theme-picker-grid">
+                            <label class="theme-option active">
+                                <input type="radio" name="design_theme" value="rainbow" checked>
+                                <span class="theme-swatch rainbow-swatch"></span>
+                                <span class="theme-label">🌈 레인보우</span>
+                            </label>
+                            <label class="theme-option">
+                                <input type="radio" name="design_theme" value="ocean">
+                                <span class="theme-swatch ocean-swatch"></span>
+                                <span class="theme-label">🌊 오션 블루</span>
+                            </label>
+                            <label class="theme-option">
+                                <input type="radio" name="design_theme" value="forest">
+                                <span class="theme-swatch forest-swatch"></span>
+                                <span class="theme-label">🌿 포레스트</span>
+                            </label>
+                            <label class="theme-option">
+                                <input type="radio" name="design_theme" value="rose">
+                                <span class="theme-swatch rose-swatch"></span>
+                                <span class="theme-label">🌸 로즈 핑크</span>
+                            </label>
+                            <label class="theme-option">
+                                <input type="radio" name="design_theme" value="charcoal">
+                                <span class="theme-swatch charcoal-swatch"></span>
+                                <span class="theme-label">🖤 모던 차콜</span>
+                            </label>
+                            <label class="theme-option">
+                                <input type="radio" name="design_theme" value="midnight">
+                                <span class="theme-swatch midnight-swatch"></span>
+                                <span class="theme-label">🌌 미드나잇</span>
+                            </label>
+                        </div>
+                    </div>
+
                     <!-- 문체/Tone 선택 -->
                     <div class="form-group">
                         <label for="tone">문체 (Tone앤매너)</label>
@@ -101,6 +138,19 @@
 
                 <!-- 최종 결과 상자 (완료 후 표시) -->
                 <div id="resultContentArea" style="display: none;">
+                    <!-- 상단 실시간 테마 변경 탭 -->
+                    <div class="result-theme-bar">
+                        <span class="theme-bar-title">🎨 디자인 템플릿 변경:</span>
+                        <div class="theme-bar-buttons" id="resultThemeButtons">
+                            <button type="button" class="theme-pill-btn active" data-theme="rainbow">🌈 레인보우</button>
+                            <button type="button" class="theme-pill-btn" data-theme="ocean">🌊 오션</button>
+                            <button type="button" class="theme-pill-btn" data-theme="forest">🌿 포레스트</button>
+                            <button type="button" class="theme-pill-btn" data-theme="rose">🌸 로즈</button>
+                            <button type="button" class="theme-pill-btn" data-theme="charcoal">🖤 차콜</button>
+                            <button type="button" class="theme-pill-btn" data-theme="midnight">🌌 미드나잇</button>
+                        </div>
+                    </div>
+
                     <!-- 상단 액션 버튼들 (복사, 다운로드) -->
                     <div class="action-buttons">
                         <button id="copyBtn" class="btn btn-secondary">📋 텍스트 복사</button>
@@ -108,7 +158,7 @@
                     </div>
 
                     <!-- 이력서 결과 내용 출력창 (마크다운 렌더링) -->
-                    <div id="resultOutput" class="result-output markdown-body"></div>
+                    <div id="resultOutput" class="result-output markdown-body theme-rainbow"></div>
                 </div>
             </section>
         </main>
