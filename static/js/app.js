@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentCandidateName = "이력서";
     let rawMarkdownResult = "";
     let currentSelectedTheme = "rainbow";
+    let currentPromptType = "general";
 
     // 테마 제어 요소들
     const themeOptionRadios = document.querySelectorAll('input[name="design_theme"]');
@@ -92,9 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         currentCandidateName = name;
+        currentPromptType = promptType;
 
         // UI를 '로딩 중' 상태로 전환
-        setLoadingState(true);
+        setLoadingState(true, promptType);
 
         try {
             // Flask 백엔드의 /generate 라우트로 POST 비동기 요청 전송
@@ -168,7 +170,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // 임시 <a> 태그를 만들어 다운로드 트리거
         const tempLink = document.createElement("a");
         tempLink.href = url;
-        tempLink.download = `${currentCandidateName}_이력서_포트폴리오.md`;
+        const fileName = currentPromptType === "english"
+            ? `${currentCandidateName}_Resume_Portfolio.md`
+            : `${currentCandidateName}_이력서_포트폴리오.md`;
+        tempLink.download = fileName;
         document.body.appendChild(tempLink);
         tempLink.click();
 
@@ -180,13 +185,21 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- UI 헬퍼 함수들 ---
 
     /** 로딩 상태에 따라 UI 요소들의 보임/숨김 제어 */
-    function setLoadingState(isLoading) {
+    function setLoadingState(isLoading, promptType = "general") {
         if (isLoading) {
             loadingBox.style.display = "block";
             placeholderBox.style.display = "none";
             resultContentArea.style.display = "none";
             submitBtn.disabled = true;
-            submitBtn.textContent = "⏳ AI가 이력서를 작성하고 있습니다...";
+
+            const pTag = loadingBox.querySelector("p");
+            if (promptType === "english") {
+                submitBtn.textContent = "🌐 글로벌 영문 이력서로 번역 중...";
+                if (pTag) pTag.textContent = "🌐 Google Gemini AI가 글로벌 영문 이력서 & 포트폴리오로 번역 및 작성하고 있습니다...";
+            } else {
+                submitBtn.textContent = "⏳ AI가 이력서를 작성하고 있습니다...";
+                if (pTag) pTag.textContent = "🤖 Google Gemini AI가 맞춤형 이력서를 작성하고 있습니다...";
+            }
         } else {
             loadingBox.style.display = "none";
             submitBtn.disabled = false;

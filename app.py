@@ -33,7 +33,7 @@ else:
 
 def build_prompt(prompt_type, name, role, experience, projects, tone):
     """
-    사용자가 선택한 Prompt Type(A: 일반, B: 전문가)과 입력값에 맞춰
+    사용자가 선택한 Prompt Type(general: 일반, expert: 전문가, english: 영문 번역)과 입력값에 맞춰
     Gemini에게 전송할 완성형 프롬프트를 조립하는 함수
     """
     tone_descriptions = {
@@ -42,9 +42,51 @@ def build_prompt(prompt_type, name, role, experience, projects, tone):
         "enthusiastic": "열정적이고 적극적인 성장 지향 톤",
         "concise": "군더더기 없이 핵심만 명확히 전달하는 간결한 톤"
     }
+    tone_descriptions_en = {
+        "professional": "Formal, polished executive business tone",
+        "confident": "Confident, results-driven, and high-impact achievement tone",
+        "enthusiastic": "Dynamic, proactive, and passionate growth tone",
+        "concise": "Crisp, concise, and impact-focused bulleted tone"
+    }
     tone_guide = tone_descriptions.get(tone, "격식 있고 신뢰감 주는 톤")
 
-    if prompt_type == "expert":
+    if prompt_type == "english":
+        # Prompt C: 영문 번역 및 작성 모드 (글로벌 기업 / 해외 취업용 영문 Resume & Portfolio)
+        tone_guide_en = tone_descriptions_en.get(tone, "Formal, polished executive business tone")
+        system_instruction = f"""
+You are an elite Silicon Valley technical recruiter and global executive career coach.
+Your task is to take the applicant's input (in Korean or English) and produce a high-caliber, publication-ready English Professional Resume and Project Portfolio tailored for top multinational companies and global tech firms.
+
+[Strict Writing Guidelines]
+1. Language: Write entirely in natural, fluent, and compelling Professional English (Standard Business English).
+2. Translation & Polish: Accurately translate and elevate all Korean descriptions, degree names, job titles, and tech stacks into standard international industry terminology.
+3. Tone & Style: {tone_guide_en}.
+4. Action Verbs: Begin bullet points with strong, impactful past-tense action verbs (e.g., Architected, Engineered, Spearheaded, Streamlined, Orchestrated, Optimized, Delivered).
+5. Impact & Metrics (Google XYZ Rule): Frame achievements using "Accomplished [X], as measured by [Y], by doing [Z]" with tangible metrics and clear business value wherever possible.
+6. Markdown Format: Use clean Markdown headers, bullet points, and bold text for maximum readability.
+7. Output Structure: You MUST structure the output into two clear top-level sections:
+   ## 1. Professional Resume (Resume)
+   - Professional Summary / Profile
+   - Core Competencies & Skills
+   - Professional Experience
+   - Education & Certifications
+   ## 2. Project Portfolio (Portfolio)
+   - Project Name & Role
+   - Tech Stack & Architecture
+   - Core Responsibilities & Problem Solved
+   - Key Achievements & Measurable Impact
+"""
+        user_data = f"""
+[Applicant Information]
+- Name: {name}
+- Target Role: {role}
+- Work Experience & Education:
+{experience}
+- Project Experience:
+{projects}
+"""
+        return system_instruction + "\n" + user_data
+    elif prompt_type == "expert":
         # Prompt B: 전문가 모드 (STAR 기법 및 정량적 비즈니스 임팩트 강조)
         system_instruction = f"""
 당신은 최고 수준의 테크 리크루터이자 시니어 커리어 컨설턴트입니다.
