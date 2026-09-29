@@ -1,9 +1,10 @@
 // PWA Service Worker for AI Resume & Portfolio Builder
-const CACHE_NAME = 'resume-builder-v2';
+const CACHE_NAME = 'resume-builder-v3';
 const STATIC_ASSETS = [
     '/',
     '/static/css/style.css',
     '/static/js/app.js',
+    '/manifest.json',
     '/static/manifest.json',
     '/static/icons/icon-192.png',
     '/static/icons/icon-512.png',

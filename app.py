@@ -98,7 +98,15 @@ def index():
 @app.route("/api/manifest.json")
 def manifest():
     """PWA Manifest 파일 서빙"""
-    return app.send_static_file("manifest.json")
+    response = app.send_static_file("manifest.json")
+    response.headers["Content-Type"] = "application/manifest+json; charset=utf-8"
+    origin = request.headers.get("Origin")
+    if origin:
+        response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+    else:
+        response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
 
 
 @app.route("/sw.js")
